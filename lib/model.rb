@@ -1,5 +1,5 @@
 require 'sequel'
-require './config.rb'
+require './lib/config.rb'
 
 
 DB = Sequel.connect CONFIG['db']

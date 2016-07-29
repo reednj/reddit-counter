@@ -1,7 +1,7 @@
 require 'yaml'
 
-prod = './config.prod.yaml' 
-default = './config.yaml'
+prod = './config/config.prod.yaml' 
+default = './config/config.yaml'
 
 f = File.exist?(prod) ? prod :default
 raise "could not load config file '#{f}'" if !File.exist? f

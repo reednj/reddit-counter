@@ -1,5 +1,5 @@
 require 'rest_client'
-require './model'
+require './lib/model'
 
 class App
 	def main
