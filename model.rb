@@ -1,7 +1,8 @@
 require 'sequel'
-require 'yaml'
 
-CONFIG = YAML.load_file './config.yaml'
+require './config.rb'
+
+
 DB = Sequel.connect CONFIG['db']
 
 class TagValue < Sequel::Model(:tag_values)
