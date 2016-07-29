@@ -6,4 +6,4 @@ CONFIG=$CODE/config_backup/redditcounter/
 
 # just copy everything from the config backup into
 # the app folder...
-cp $CONFIG/* $APP/
+cp $CONFIG/* $APP/config/
