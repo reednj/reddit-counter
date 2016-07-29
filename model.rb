@@ -17,7 +17,7 @@ class TagValue < Sequel::Model(:tag_values)
 	end
 
 	def value=(v)
-		if v.is_a?(Fixnum) && v > 2**31
+		if !v.is_a?(Float) && v > 2**31
 			self.tag_value_bigint = v
 		else
 			self.tag_value = v
