@@ -1,12 +1,8 @@
 require 'sequel'
+require 'yaml'
 
-DB = Sequel.connect({
-	:adapter => 'mysql2',
-	:host => '127.0.0.1',
-	:username => 'linkuser',
-	:password => '',
-	:database => 'scratch'
-})
+CONFIG = YAML.load_file './config.yaml'
+DB = Sequel.connect CONFIG['db']
 
 class TagValue < Sequel::Model(:tag_values)
 	def self.for_tag(tag_id, value)
