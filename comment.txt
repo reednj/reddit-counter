@@ -1,0 +1,48 @@
+{
+    kind: "Listing",
+    data: {
+        modhash: "8vsxjjwfgo49be32c7bdbaa1381b16000ccd5a1cd248d4ca14",
+            children: [
+                {
+                    kind: "t1",
+                    data: {
+                        subreddit_id: "t5_2r6dh",
+                        banned_by: null,
+                        removal_reason: null,
+                        link_id: "t3_4uyvei",
+                        likes: null,
+                        replies: "",
+                        user_reports: [ ],
+                        saved: false,
+                        id: "d5u8yx6",
+                        gilded: 0,
+                        archived: false,
+                        report_reasons: null,
+                        author: "Ly_84",
+                        parent_id: "t1_d5u2i6r",
+                        score: 3,
+                        approved_by: null,
+                        controversiality: 0,
+                        body: "Yeah, kim,kyo and andy went back to high school...",
+                        edited: false,
+                        author_flair_css_class: "adelheid",
+                        downs: 0,
+                        body_html: "&lt;div class="md"&gt;&lt;p&gt;Yeah, kim,kyo and andy went back to high school...&lt;/p&gt; &lt;/div&gt;",
+                        stickied: false,
+                        subreddit: "kof",
+                        score_hidden: false,
+                        name: "t1_d5u8yx6",
+                        created: 1469729573,
+                        author_flair_text: "",
+                        created_utc: 1469700773,
+                        ups: 3,
+                        mod_reports: [ ],
+                        num_reports: null,
+                        distinguished: null
+                    }
+                }
+            ],
+        after: null,
+        before: null
+    }
+}
