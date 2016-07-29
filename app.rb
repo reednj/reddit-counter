@@ -38,7 +38,18 @@ helpers do
 end
 
 get '/' do
-	erb :home, :layout => :_layout
+	current_count = TagValue.latest_for_tag('reddit-comment-count')
+	data = {
+		:comments => {
+			:age => current_count.created_date.age,
+			:count => current_count.value,
+			:rate => TagValue.latest_for_tag('reddit-comment-rate').value
+		}
+	}
+
+	erb :home, :layout => :_layout, :locals => {
+		:_js => data
+	}
 end
 
 

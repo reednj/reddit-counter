@@ -1,4 +1,65 @@
+<% content_for :header do %>
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<style type='text/css'>
+	.comments {
+		margin-top: 10%;
+		text-align: center;
+		font-family: 'Open Sans', Arial;
+	}
+
+	.comments .count {
+		font-size: 72pt;
+	}
+
+	.comments .rate {
+		color: gray;
+		font-size: 24pt;
+	}
+
+	.comments .label {
+		color: gray;
+		font-size: 16pt;
+		text-transform: uppercase;
+	}
+</style>
+
+<script type='text/javascript'>
+
+class Counter {
+	constructor(data) {
+		this.data = data;
+		this.startTime = Date.now();
+	}
+
+	get age() {
+		return (this.data.age || 0) + (Date.now() - this.startTime) / 1000;
+	}
+
+	get currentValue() {
+		return this.data.count + this.data.rate * this.age;
+	}
+}
+
+$(document).ready(function() {
+	var c = new Counter(_js.comments);
+
+	(function(){
+		$('.comments .count').html(c.currentValue.round().toLocaleString());
+	}).periodical(100);
+});
+
+</script>
+
+<% end %>
 
 <% content_for :body do %>
-	<h1>HOME</h1>
+
+<div class='comments'>
+	<div class='label'>[number of reddit comments]</div>
+	<div class='count'><%= _js[:comments][:count].to_n0 %></div>
+	<div class='rate'><%= (_js[:comments][:rate] * 1.hour).to_human  %> per hour</div>
+</div>
+
 <% end %>

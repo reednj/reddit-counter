@@ -26,4 +26,8 @@
 	Function.implement('periodical', function(time_ms, scope) {
 		return setInterval(this.bind(scope), time_ms);
 	});
+
+	Number.implement('round', function() {
+		return Math.round(this);
+	});
 })();

@@ -11,6 +11,10 @@ class TagValue < Sequel::Model(:tag_values)
 			v.value = value
 		end
 	end
+
+	def self.latest_for_tag(tag_id)
+		self.where(:tag_id => tag_id).reverse_order(:value_id).first
+	end
 	
 	def value
 		tag_value || tag_value_bigint

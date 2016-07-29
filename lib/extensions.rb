@@ -71,6 +71,10 @@ class Numeric
 		return s
 	end
 
+	def to_n0
+		self.to_s_with_delimiters
+	end
+
 	def to_s_with_delimiters
 		self.round.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
 	end
