@@ -1,5 +1,4 @@
 require 'sequel'
-
 require './config.rb'
 
 

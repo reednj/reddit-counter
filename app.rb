@@ -13,9 +13,8 @@ class App
 		unless current_count.prev.nil?
 			comment_rate = comments_per_second(current_count, current_count.prev)
 			current_rate = TagValue.for_tag('reddit-comment-rate', comment_rate).save
-		end
-
-		puts current_rate.value.round(2).to_s + " comments/sec"	
+			puts current_rate.value.round(2).to_s + " comments/sec"
+		end		
 	end
 
 	def comments_per_second(current, prev)
