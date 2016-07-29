@@ -12,8 +12,10 @@ class App
 		comment_count = get_latest_id
 		current_count = TagValue.for_tag('reddit-comment-count', comment_count).save
 
-		comment_rate = comments_per_second(current_count, current_count.prev)
-		current_rate = TagValue.for_tag('reddit-comment-rate', comment_rate).save
+		unless current_count.prev.nil?
+			comment_rate = comments_per_second(current_count, current_count.prev)
+			current_rate = TagValue.for_tag('reddit-comment-rate', comment_rate).save
+		end
 	end
 
 	def comments_per_second(current, prev)
