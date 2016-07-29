@@ -8,24 +8,25 @@ class App
 	end
 
 	def update_comment_rate
-		comment_count = get_latest_comment_id
-		current_count = TagValue.for_tag('reddit-comment-count', comment_count).save
-
-		unless current_count.prev.nil?
-			comment_rate = calculate_rate(current_count, current_count.prev)
-			current_rate = TagValue.for_tag('reddit-comment-rate', comment_rate).save
-			puts current_rate.value.round(2).to_s + " comments/sec"
-		end		
+		update_rate 'reddit-comment' do
+			get_latest_comment_id
+		end
 	end
 
 	def update_thread_rate
-		thread_count = get_latest_thread_id
-		current_count = TagValue.for_tag('reddit-thread-count', thread_count).save
+		update_rate 'reddit-thread' do
+			get_latest_thread_id
+		end
+	end
+
+	def update_rate(tag_id)
+		current_count = TagValue.for_tag(tag_id + '-count', yield()).save
 
 		unless current_count.prev.nil?
 			comment_rate = calculate_rate(current_count, current_count.prev)
-			current_rate = TagValue.for_tag('reddit-thread-rate', comment_rate).save
-			puts current_rate.value.round(2).to_s + " threads/sec"
+			current_rate = TagValue.for_tag(tag_id+'-rate', comment_rate).save
+			puts "#{tag_id}: " + current_rate.value.round(2).to_s + "/sec"
+			return current_rate.value
 		end
 	end
 
