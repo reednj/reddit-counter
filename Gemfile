@@ -6,5 +6,3 @@ gem 'sequel'
 gem 'sinatra-contrib'
 gem 'erubis'
 gem 'rest_client'
-gem 'yaml'
-
