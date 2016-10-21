@@ -7,3 +7,9 @@ CONFIG=$CODE/config_backup/redditcounter/
 # just copy everything from the config backup into
 # the app folder...
 cp $CONFIG/* $APP/config/
+
+mkdir $APP/tmp
+touch $APP/tmp/restart.txt
+
+cd $APP
+bundle install
