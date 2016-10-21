@@ -1,3 +1,4 @@
+require 'json'
 require 'sequel'
 require './lib/config.rb'
 
