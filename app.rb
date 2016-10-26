@@ -39,11 +39,18 @@ end
 
 get '/' do
 	current_count = TagValue.latest_for_tag('reddit-comment-count')
+	thread_count = TagValue.latest_for_tag('reddit-thread-count')
+
 	data = {
 		:comments => {
 			:age => current_count.created_date.age,
 			:count => current_count.value,
 			:rate => TagValue.latest_for_tag('reddit-comment-rate').value
+		},
+		:threads => {
+			:age => thread_count.created_date.age,
+			:count => thread_count.value,
+			:rate => TagValue.latest_for_tag('reddit-thread-rate').value
 		}
 	}
 
