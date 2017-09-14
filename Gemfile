@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
-
 gem 'sinatra'
 gem 'mysql2'
-gem 'sequel'
+gem 'sequel', '<5'
 gem 'sinatra-contrib'
 gem 'erubis'
-gem 'rest_client'
+gem 'rest-client'

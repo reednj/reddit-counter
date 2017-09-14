@@ -2,8 +2,8 @@ require 'json'
 require 'sequel'
 require './lib/config.rb'
 
-
 DB = Sequel.connect CONFIG['db']
+Sequel::Deprecation.output = nil
 
 class TagValue < Sequel::Model(:tag_values)
 	def self.for_tag(tag_id, value)
