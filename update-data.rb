@@ -47,12 +47,12 @@ class App
 	end
 
 	def get_latest_comment
-		get_reddit_listing 'comments.json?limit=2&sort=new'
+		get_reddit_listing '/r/all/comments.json?limit=2&sort=new'
 	end
 
 	def get_reddit_listing(path)
 		user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6)'
-		text_data = RestClient.get "http://www.reddit.com/#{path}", :user_agent => user_agent
+		text_data = RestClient.get "https://www.reddit.com/#{path}", :user_agent => user_agent
 		data = JSON.parse text_data, :symbolize_names => true
 		return data[:data][:children].map { |c| c[:data]  }
 	end
