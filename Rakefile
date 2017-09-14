@@ -1,5 +1,5 @@
 
 desc 'push and install on prod'
-rask :release do
+task :release do
     sh 'git push --follow-tags prod master'
 end
