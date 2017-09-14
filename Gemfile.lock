@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    YAML-load_first (1.1.4)
     backports (3.8.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
@@ -43,6 +44,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  YAML-load_first
   erubis
   mysql2
   rest-client

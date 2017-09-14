@@ -1,8 +1,8 @@
 require 'yaml'
+require 'yaml/load_first'
 
-prod = './config/config.prod.yaml' 
-default = './config/config.yaml'
-
-f = File.exist?(prod) ? prod :default
-raise "could not load config file '#{f}'" if !File.exist? f
-CONFIG = YAML.load_file f
+CONFIG = YAML.load_first_file [
+    "#{ENV['HOME']}/config/reddit-counter.db.yaml",
+    './config/config.prod.yaml',
+    './config/config.yaml'
+]
