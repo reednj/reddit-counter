@@ -55,41 +55,19 @@ class RedisTimeValue < RedisModel
     end
 end
 
-class RedisTimeSeries < RedisModel
-	attr_accessor :value
-    attr_accessor :created_date
-    attr_accessor :redis_key
+class RedditCounter < RedisModel
+    attr_accessor :key_base
 
-	def initialize(value, created_date)
-		self.value = value.to_f
-		self.created_date = created_date
-	end
-
-	def self.get_by_index(redis_key, n)
-        data = self.redis.zrevrange redis_key, n, n+1, :with_scores => true
-        return nil unless data && !data.empty?
-
-        record = data.first
-        t = self.new(record.first, Time.at(record.last))
-        t.redis_key = redis_key
-        return t
+    def initialize(key_base)
+        self.key_base = key_base
     end
 
-    def self.current_rate(redis_key)
-        record_1 = self.get_by_index redis_key, 0
-        record_2 = self.get_by_index redis_key, 1
-        (record_1.value - record_2.value) / (record_1.created_date - record_2.created_date)
-    end
-    
-    def save(redis_key=nil)
-        k = redis_key || self.redis_key || raise('redis_key required')
-        self.redis.zadd k, created_date.to_f, value.to_f
-        return self
+    def count
+        @current_count ||= RedisTimeValue.new "#{key_base}:current_count"
     end
 
-    def to_s
-        "[#{redis_key}:#{created_date}]:#{value}"
+    def rate
+        @current_rate ||= RedisTimeValue.new "#{key_base}:current_rate"
     end
 end
-
 

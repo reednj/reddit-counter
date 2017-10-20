@@ -134,7 +134,6 @@ class Numeric
 		unit = ''
 		n = self
 		n = self.to_f unless n.is_a? Numeric
-		n = self.to_f if n.is_a? BigDecimal
 
 		if n > 1100
 			n /= 1000.0

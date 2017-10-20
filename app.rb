@@ -16,8 +16,7 @@ set :erb, :escape_html => true
 set :version, 'v0.1'
 
 configure :development do
-	also_reload './lib/model.rb'
-	also_reload './lib/extensions.rb'
+	Dir['./lib/*.rb'].each { |f| also_reload f }
 end
 
 configure :production do
@@ -38,19 +37,19 @@ helpers do
 end
 
 get '/' do
-	current_count = TagValue.latest_for_tag('reddit-comment-count')
-	thread_count = TagValue.latest_for_tag('reddit-thread-count')
+	comments = RedditCounter.new 'reddit:comments'
+	threads = RedditCounter.new 'reddit:threads'
 
 	data = {
 		:comments => {
-			:age => current_count.created_date.age,
-			:count => current_count.value,
-			:rate => TagValue.latest_for_tag('reddit-comment-rate').value
+			:age => comments.count.created_date.age,
+			:count => comments.count.value,
+			:rate => comments.rate.value
 		},
 		:threads => {
-			:age => thread_count.created_date.age,
-			:count => thread_count.value,
-			:rate => TagValue.latest_for_tag('reddit-thread-rate').value
+			:age => threads.count.created_date.age,
+			:count => threads.count.value,
+			:rate => threads.rate.value
 		}
 	}
 
