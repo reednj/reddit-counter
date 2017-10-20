@@ -3,26 +3,39 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
 <style type='text/css'>
-	.counter {
-		margin-top: 10%;
-		text-align: center;
+	body {
 		font-family: 'Open Sans', Arial;
+	}
+	.counter {
+		
+		text-align:right;
+		background-color: #fd4;
 	}
 
 	.counter .count {
 		font-size: 72pt;
 	}
 
-	.counter .rate {
-		color: gray;
-		font-size: 24pt;
-	}
-
 	.counter .label {
-		color: gray;
 		font-size: 16pt;
 		text-transform: uppercase;
+		float:right;
+		writing-mode: vertical-rl;
+		background-color: #4df;
+		padding: 16px 12px;
+		margin-left: 1em;
 	}
+
+	.header-line {
+		background-color:black; 
+		color: #fd4;
+		text-align:left; 
+		padding: 4px;
+		font-weight:bold;
+	}
+
+	/* better style  */
+
 </style>
 
 <script type='text/javascript'>
@@ -58,16 +71,22 @@ $(document).ready(function() {
 
 <% content_for :body do %>
 
+<div class='header-line'>how active is reddit.com?</div>
+
 <div class='comments counter'>
-	<div class='label'>[number of reddit comments]</div>
+	<div class='label'>comments</div>
+	
+	
 	<div class='count'><%= _js[:comments][:count].to_n0 %></div>
-	<div class='rate'><%= (_js[:comments][:rate] * 1.hour).to_human  %> per hour</div>
+	<div style='clear:both'></div>
 </div>
 
+<!--
 <div class='threads counter'>
 	<div class='label'>[number of reddit threads]</div>
 	<div class='count'><%= _js[:threads][:count].to_n0 %></div>
 	<div class='rate'><%= (_js[:threads][:rate] * 1.hour).to_human  %> per hour</div>
 </div>
+-->
 
 <% end %>
