@@ -22,7 +22,7 @@
 
 	.counter .count {
 		font-size: 72pt;
-		text-align:center;
+		text-align: center;
 	}
 
 	.header-line {
@@ -34,6 +34,10 @@
 		text-align: center;
 	}
 
+	.header-line a {
+		color: #fd4;
+	}
+
 	.recent-comment {
 		padding: 16px;
 	}
@@ -42,6 +46,26 @@
 		color: black;
 	}
 
+	.footer-line {
+		text-align:left;
+		padding:16px; 
+		border-top: 4px solid black;
+	}
+
+	@media only screen and (max-width:700px) {
+		.counter {
+			padding-bottom: 8px;
+			padding-top: 8px;
+		}
+
+		.counter .count {
+			font-size: 36pt;
+		}
+
+		.footer-line {
+			text-align: center;
+		}
+	}
 </style>
 
 <script type='text/javascript'>
@@ -131,7 +155,7 @@ $(document).ready(function() {
 
 <% content_for :body do %>
 
-<div class='header-line'>how many comments are there on reddit.com?</div>
+<div class='header-line'>how many comments are there on <a href='http://reddit.com'>reddit.com?</a></div>
 
 <div class='comments counter' >
 	<div class='count'><%= _js[:comments][:count].to_n0 %></div>
@@ -144,9 +168,9 @@ $(document).ready(function() {
 	<a class='refresh-link' href='#'>&#x21bb;</a>
 </div>
 
-<div class='header-line' style='color:black;background-color:#fd4;text-align:right;padding:16px'>
-you might like <a href='http://twitter.com/no_context_reddit'>@no_context_reddit</a> |
-<a href='http://reednj.com'>@reednj</a> 2017
+<div class='footer-line'>
+<a href='http://reednj.com'>@reednj</a> 2017 |
+<a href='http://twitter.com/no_context_reddit'>@no_context_reddit</a>
 </div>
 
 <% end %>
