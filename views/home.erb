@@ -16,21 +16,13 @@
 		font-family: 'Open Sans', Arial;
 		text-align:right;
 		background-color: #fd4;
+		border-bottom: 4px solid #4df;
+		padding-bottom: 16px;
 	}
 
 	.counter .count {
 		font-size: 72pt;
 		text-align:center;
-	}
-
-	.counter .label {
-		font-size: 16pt;
-		text-transform: uppercase;
-		float:right;
-		writing-mode: vertical-rl;
-		background-color: #4df;
-		padding: 16px 12px;
-		margin-left: 1em;
 	}
 
 	.header-line {
@@ -109,7 +101,7 @@ class App {
 
 	updateComment() {
 		this.handler.next().then(comment => {
-			$('.recent-comment span').text(comment.body);
+			$('.recent-comment span').html(comment.body);
 			$('.recent-comment a.comment-link')
 				.attr('href', `${comment.link_permalink}${comment.id}`);
 			$('.recent-comment a.user-link')
@@ -139,12 +131,10 @@ $(document).ready(function() {
 
 <% content_for :body do %>
 
-<div class='header-line'>how active is reddit.com?</div>
+<div class='header-line'>how many comments are there on reddit.com?</div>
 
-<div class='comments counter'>
-	<div class='label'>comments</div>
+<div class='comments counter' >
 	<div class='count'><%= _js[:comments][:count].to_n0 %></div>
-	<div style='clear:both'></div>
 </div>
 
 <div class='recent-comment'>
