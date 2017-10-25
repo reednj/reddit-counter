@@ -38,18 +38,12 @@ end
 
 get '/' do
 	comments = RedditCounter.new 'reddit:comments'
-	threads = RedditCounter.new 'reddit:threads'
-
+	
 	data = {
 		:comments => {
 			:age => comments.count.created_date.age,
 			:count => comments.count.value,
 			:rate => comments.rate.value
-		},
-		:threads => {
-			:age => threads.count.created_date.age,
-			:count => threads.count.value,
-			:rate => threads.rate.value
 		}
 	}
 

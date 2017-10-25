@@ -69,5 +69,9 @@ class RedditCounter < RedisModel
     def rate
         @current_rate ||= RedisTimeValue.new "#{key_base}:current_rate"
     end
+
+    def to_h
+        raise 'not_implemented'
+    end
 end
 
