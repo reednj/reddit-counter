@@ -53,7 +53,7 @@ get '/' do
 		}
 	}
 
-	erb :home, :layout => :_layout, :locals => {
+	erb :home, :locals => {
 		:_js => data
 	}
 end
