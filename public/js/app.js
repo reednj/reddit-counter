@@ -54,12 +54,20 @@ class App {
     constructor() {
         this.handler = new CommentHandler(); 
         this.commentCounter = new Counter(_js.comments);
-        $('.recent-comment a.refresh-link').click(e => this.updateComment());
+        this.updateTimer = -1;
+        $('.recent-comment a.refresh-link').click(e => {
+            if(this.updateTimer > 0) {
+                clearTimeout(this.updateTimer);
+                this.updateTimer = setInterval(() => this.updateComment(), 10000);
+            }
+            
+            this.updateComment();
+        });
     }
 
     start() {
         setInterval(() => $('.comments .count').html(this.commentCounter.currentString), 100);
-        setInterval(() => this.updateComment(), 10000);
+        this.updateTimer = setInterval(() => this.updateComment(), 10000);
         this.updateComment();
     }
 
@@ -72,5 +80,6 @@ class App {
                 .text(`/u/${comment.author}`)
                 .attr('href', `http://reddit.com/u/${comment.author}`);
         });
+
     }
 }
