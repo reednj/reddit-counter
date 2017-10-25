@@ -1,3 +1,4 @@
+
 class Counter {
     constructor(data) {
         this.data = data;
@@ -47,8 +48,19 @@ class CommentHandler {
 
 class App {
     constructor() {
-        this.handler = new CommentHandler();
+        this.handler = new CommentHandler(); 
+        this.commentCounter = new Counter(_js.comments);
         $('.recent-comment a.refresh-link').click(e => this.updateComment());
+    }
+
+    start() {
+        setInterval(() => {
+            let v = Math.round(this.commentCounter.currentValue).toLocaleString();
+            $('.comments .count').html(v);
+        }, 100);
+
+        setInterval(() => app.updateComment(), 10000);
+        this.updateComment();
     }
 
     updateComment() {

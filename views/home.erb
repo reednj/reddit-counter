@@ -21,17 +21,7 @@
 
 	<script type='text/javascript'>
 
-	$(document).ready(function() {
-		var c = new Counter(_js.comments);
-
-		setInterval(() => {
-			$('.comments .count').html(Math.round(c.currentValue).toLocaleString());
-		}, 100);
-
-		const app = new App();
-		app.updateComment();
-		setInterval(() => app.updateComment(), 10000);
-	});
+	$(document).ready(() => new App().start());
 
 	</script>
 
