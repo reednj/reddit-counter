@@ -25,6 +25,10 @@ class RedisTimeValue < RedisModel
         self.redis.set redis_key, "#{Time.now.to_f}:#{value.to_f}"
     end
 
+    def exist?
+        self.redis.exists redis_key
+    end
+
     def initialize(redis_key)
         self.redis_key = redis_key
     end

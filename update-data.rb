@@ -1,6 +1,13 @@
 #!/usr/bin/env ruby
+require 'time'
 require 'rest_client'
 require './lib/redis_model'
+
+class Date
+    def to_key
+        to_s.gsub "-", ""
+    end
+end
 
 class App
 	def main
@@ -11,6 +18,7 @@ class App
     def update_comment_data
         next_value = get_latest_comment_id
         current = RedisTimeValue.new 'reddit:comments:current_count'
+        daily =  RedisTimeValue.new "reddit:comments:count:#{Date.today.to_key}"
         
         if current && current.data_string
             next_rate = current.calculate_rate next_value
@@ -18,6 +26,7 @@ class App
         end
 
         current.set next_value
+        daily.set next_value unless daily.exist?
     end
 
     def update_thread_data
