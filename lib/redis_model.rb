@@ -74,6 +74,18 @@ class RedditCounter < RedisModel
         @current_rate ||= RedisTimeValue.new "#{key_base}:current_rate"
     end
 
+    # the count provided might be some time in the past, so we want to
+    # calculate it forward based on the age and the rate and get an
+    # estimate of what the current value would be. The client does this
+    # also in js, but we need it on the server sometimes too
+    def estimated_count
+        count.value + rate.value * count.created_date.age
+    end
+
+    def time_until(n)
+        (n - estimated_count) / rate.value
+    end
+
     def to_h
         {
             :created_date => count.created_date,

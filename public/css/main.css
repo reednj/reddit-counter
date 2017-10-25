@@ -47,6 +47,12 @@ a {
     border-top: 4px solid black;
 }
 
+.milestone {
+    text-align: center;
+    background-color: #4df;
+    padding-bottom: 3px;
+}
+
 @media only screen and (max-width:700px) {
     .counter {
         padding-bottom: 8px;
