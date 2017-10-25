@@ -12,6 +12,10 @@ class Counter {
     get currentValue() {
         return this.data.count + this.data.rate * this.age;
     }
+
+    get currentString() {
+        return Math.round(this.currentValue).toLocaleString();
+    }
 }
 
 class CommentHandler {
@@ -54,12 +58,8 @@ class App {
     }
 
     start() {
-        setInterval(() => {
-            let v = Math.round(this.commentCounter.currentValue).toLocaleString();
-            $('.comments .count').html(v);
-        }, 100);
-
-        setInterval(() => app.updateComment(), 10000);
+        setInterval(() => $('.comments .count').html(this.commentCounter.currentString), 100);
+        setInterval(() => this.updateComment(), 10000);
         this.updateComment();
     }
 
