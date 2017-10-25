@@ -75,7 +75,12 @@ class RedditCounter < RedisModel
     end
 
     def to_h
-        raise 'not_implemented'
+        {
+            :created_date => count.created_date,
+            :age => count.created_date.count,
+            :count => count.value,
+            :rate => rate.value
+        }
     end
 end
 
