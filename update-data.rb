@@ -2,12 +2,7 @@
 require 'time'
 require 'rest_client'
 require './lib/redis_model'
-
-class Date
-    def to_key
-        to_s.gsub "-", ""
-    end
-end
+require './lib/extensions'
 
 class App
 	def main

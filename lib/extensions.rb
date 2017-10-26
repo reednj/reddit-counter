@@ -1,3 +1,4 @@
+require 'time'
 require 'digest/sha1'
 
 class Object
@@ -56,6 +57,14 @@ end
 class Date
 	def today?
 		self == Date.today
+	end
+
+	def to_key
+        to_s.gsub "-", ""
+	end
+	
+	def self.yesterday
+		today - 1
 	end
 end
 

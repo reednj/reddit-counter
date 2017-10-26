@@ -1,5 +1,6 @@
 require 'json'
 require 'redis'
+require './lib/extensions'
 
 REDIS = Redis.new
 
@@ -74,6 +75,15 @@ class RedditCounter < RedisModel
         @current_rate ||= RedisTimeValue.new "#{key_base}:current_rate"
     end
 
+    # calculate the rate from the last few days / last week so that we can project out
+    # what the count will be in the long term
+    def long_term_rate
+        @long_term_rate ||= begin
+            previous_count = RedisTimeValue.new("#{key_base}:count:#{Date.yesterday.to_key}")
+            (count.value - previous_count.value) / (count.created_date - previous_count.created_date)
+        end
+    end
+
     # the count provided might be some time in the past, so we want to
     # calculate it forward based on the age and the rate and get an
     # estimate of what the current value would be. The client does this
@@ -83,7 +93,9 @@ class RedditCounter < RedisModel
     end
 
     def time_until(n)
-        (n - estimated_count) / rate.value
+        delta = (n - estimated_count)
+        t = delta / rate.value
+        t <= 1.day ? t : delta / long_term_rate
     end
 
     def to_h
