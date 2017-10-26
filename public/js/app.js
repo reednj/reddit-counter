@@ -1,8 +1,13 @@
 
 class Counter {
-    constructor(data) {
+    constructor(data, options) {
         this.data = data;
+        this.options = options || {};
         this.startTime = Date.now();
+
+        if(this.data.refresh_in > 0) {
+            this._scheduleRefresh();
+        }
     }
 
     get age() {
@@ -15,6 +20,18 @@ class Counter {
 
     get currentString() {
         return Math.round(this.currentValue).toLocaleString();
+    }
+
+    refreshData() {
+        return $.getJSON(this.options.refreshUrl).then(response => {
+            this.data = response;
+            this._scheduleRefresh();
+        });
+    }
+
+    _scheduleRefresh(seconds) {
+        seconds = seconds || this.data.refresh_in || 300;
+        setTimeout(() => this.refreshData(), seconds * 1000);
     }
 }
 
@@ -54,7 +71,10 @@ class App {
     constructor(options) {
         this.options = options || {};
         this.handler = new CommentHandler(); 
-        this.commentCounter = new Counter(this.options.comments || {});
+        this.commentCounter = new Counter(this.options.comments || {}, { 
+            refreshUrl: '/data/comments.json'
+        });
+
         this.updateTimer = -1;
 
         $('.recent-comment a.refresh-link').click(e => {
@@ -82,6 +102,5 @@ class App {
                 .text(`/u/${comment.author}`)
                 .attr('href', `http://reddit.com/u/${comment.author}`);
         });
-
     }
 }

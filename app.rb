@@ -49,5 +49,7 @@ get '/' do
 	}
 end
 
-
-
+get '/data/comments.json' do
+	comments = RedditCounter.new 'reddit:comments'
+	json comments.to_h
+end
