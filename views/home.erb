@@ -24,9 +24,7 @@
 	<% end %>
 
 	<script type='text/javascript'>
-
-	$(document).ready(() => new App().start());
-
+	$(document).ready(() => new App(_js).start());
 	</script>
 
 </head>
@@ -36,7 +34,7 @@
 <div class='header-line'>how many comments are there on <a href='http://reddit.com'>reddit.com?</a></div>
 
 <div class='comments counter' >
-	<div class='count'><%= _js[:comments][:count].to_n0 %></div>
+	<div class='count'><%= comments.estimated_count.to_n0 %></div>
 </div>
 
 <div class='milestone'>Estimate for the 30 billionth comment: <%= milestone %></div>

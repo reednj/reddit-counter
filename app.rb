@@ -40,19 +40,12 @@ get '/' do
 	comments = RedditCounter.new 'reddit:comments'
 	milestone = comments.time_until(30e9)
 	milestone = Time.now + milestone
-	
-	data = {
-		:comments => {
-			:age => comments.count.created_date.age,
-			:count => comments.count.value,
-			:rate => comments.rate.value,
-		}
-	}
+	milestone = milestone.strftime('%e %B %Y')
 
 	erb :home, :locals => {
-		:_js => data,
+		:_js => { :comments => comments.to_h },
 		:comments => comments,
-		:milestone => milestone.strftime('%e %B %Y')
+		:milestone => milestone
 	}
 end
 

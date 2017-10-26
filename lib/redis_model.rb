@@ -1,5 +1,6 @@
 require 'json'
 require 'redis'
+require 'time'
 require './lib/extensions'
 
 REDIS = Redis.new
@@ -100,8 +101,8 @@ class RedditCounter < RedisModel
 
     def to_h
         {
-            :created_date => count.created_date,
-            :age => count.created_date.count,
+            :created_date => count.created_date.iso8601,
+            :age => count.created_date.age,
             :count => count.value,
             :rate => rate.value
         }

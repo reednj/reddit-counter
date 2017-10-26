@@ -30,7 +30,7 @@ class CommentHandler {
         this.comments = this.comments || [];
 
         if(!this.comments || this.comments.length == 0) {
-            return this.getMore().then(comments => {
+            return this._getMore().then(comments => {
                 this.comments = comments;
                 return this.comments.pop();
             });
@@ -39,7 +39,7 @@ class CommentHandler {
         }
     }
 
-    getMore() {
+    _getMore() {
         let url = 'https://www.reddit.com/r/all/comments.json?sort=new&limit=20';
         return $.getJSON(url)
             .then(response => { 
@@ -51,10 +51,12 @@ class CommentHandler {
 }
 
 class App {
-    constructor() {
+    constructor(options) {
+        this.options = options || {};
         this.handler = new CommentHandler(); 
-        this.commentCounter = new Counter(_js.comments);
+        this.commentCounter = new Counter(this.options.comments || {});
         this.updateTimer = -1;
+
         $('.recent-comment a.refresh-link').click(e => {
             if(this.updateTimer > 0) {
                 clearTimeout(this.updateTimer);
