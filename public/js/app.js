@@ -38,6 +38,7 @@ class Counter {
 class CommentHandler {
     constructor() {
         this.comments = [];
+        this._lastUpdate = null;
     }
 
     // this will return the next recent comment. It will refresh the data from the
@@ -45,6 +46,12 @@ class CommentHandler {
     // a promise, even if it has the data already.
     next() {
         this.comments = this.comments || [];
+
+        // if the downloaded comments are too old, then we will try to 
+        // refresh the data to get new ones
+        if(this._lastUpdate && Date.now() - this._lastUpdate > 10 * 60 * 1000) {
+            this.comments = [];
+        }
 
         if(!this.comments || this.comments.length == 0) {
             return this._getMore().then(comments => {
@@ -57,6 +64,7 @@ class CommentHandler {
     }
 
     _getMore() {
+        this._lastUpdate = Date.now();
         let url = 'https://www.reddit.com/r/all/comments.json?sort=new&limit=20';
         return $.getJSON(url)
             .then(response => { 
