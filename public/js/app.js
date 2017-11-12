@@ -43,6 +43,7 @@ class CommentHandler {
     constructor() {
         this.comments = [];
         this._lastUpdate = null;
+        this._updating = false;
     }
 
     // this will return the next recent comment. It will refresh the data from the
@@ -51,6 +52,10 @@ class CommentHandler {
     next() {
         this.comments = this.comments || [];
 
+        if(this._updating) {
+            return Promise.resolve({});
+        }
+
         // if the downloaded comments are too old, then we will try to 
         // refresh the data to get new ones
         if(this._lastUpdate && Date.now() - this._lastUpdate > 10 * 60 * 1000) {
@@ -58,8 +63,10 @@ class CommentHandler {
         }
 
         if(!this.comments || this.comments.length == 0) {
+            this._updating = true;
             return this._getMore().then(comments => {
                 this.comments = comments;
+                this._updating = false;
                 return this.comments.pop();
             });
         } else {
