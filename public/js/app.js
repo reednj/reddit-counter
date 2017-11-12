@@ -4,10 +4,9 @@ class Counter {
         this.data = data;
         this.options = options || {};
         this.startTime = Date.now();
-
-        if(this.data.refresh_in > 0) {
-            this._scheduleRefresh();
-        }
+        this._lastUpdate = Date.now();
+     
+        setInterval(() => this._refreshIfNeeded(), 5000);
     }
 
     get age() {
@@ -23,15 +22,20 @@ class Counter {
     }
 
     refreshData() {
+        this._lastUpdate = Date.now();
+
         return $.getJSON(this.options.refreshUrl).then(response => {
             this.data = response;
-            this._scheduleRefresh();
         });
     }
 
-    _scheduleRefresh(seconds) {
-        seconds = seconds || this.data.refresh_in || 300;
-        setTimeout(() => this.refreshData(), seconds * 1000);
+    _refreshIfNeeded() {
+        let max_age_sec = this.data.refresh_in || 300;
+        let age_in_sec = (Date.now() - this._lastUpdate) / 1000;
+
+        if(age_in_sec > max_age_sec) {
+            this.refreshData();
+        }
     }
 }
 
