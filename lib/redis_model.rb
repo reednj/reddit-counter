@@ -40,7 +40,7 @@ class RedisTimeValue < RedisModel
     end
 
     def data_items
-        @data_items ||= data_string.split(':') || []
+        @data_items ||= (data_string && data_string.split(':')) || []
     end
 
     def created_date
