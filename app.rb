@@ -13,7 +13,7 @@ require './lib/extensions'
 
 use Rack::Deflater
 set :erb, :escape_html => true
-set :version, 'v0.1'
+set :version, `git describe --long`.to_s.strip
 
 configure :development do
 	Dir['./lib/*.rb'].each { |f| also_reload f }
