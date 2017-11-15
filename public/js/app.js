@@ -26,6 +26,7 @@ class Counter {
 
         return $.getJSON(this.options.refreshUrl).then(response => {
             this.data = response;
+            this.startTime = Date.now();
         });
     }
 
