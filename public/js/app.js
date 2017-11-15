@@ -35,7 +35,7 @@ class Counter {
     }
 
     _refreshIfNeeded() {
-        let max_age_sec = 10//this.data.refresh_in || 300;
+        let max_age_sec = this.data.refresh_in || 300;
         let age_in_sec = (Date.now() - this._lastUpdate) / 1000;
 
         if(age_in_sec > max_age_sec) {
