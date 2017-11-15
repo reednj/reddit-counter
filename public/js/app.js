@@ -6,7 +6,7 @@ class Counter {
         this.startTime = Date.now();
         this._lastUpdate = Date.now();
      
-        setInterval(() => this._refreshIfNeeded(), 5000);
+        setInterval(() => this._refreshIfNeeded(), 2500);
     }
 
     get age() {
@@ -27,16 +27,25 @@ class Counter {
         return $.getJSON(this.options.refreshUrl).then(response => {
             this.data = response;
             this.startTime = Date.now();
+
+            // this should be abstracted somehow as the counter is not
+            // just for comments. Maybe trigger an event on the parent?
+            $('#comment-rate-text').text(`${this._formatN1(this.data.rate)} comments/sec`);
         });
     }
 
     _refreshIfNeeded() {
-        let max_age_sec = this.data.refresh_in || 300;
+        let max_age_sec = 10//this.data.refresh_in || 300;
         let age_in_sec = (Date.now() - this._lastUpdate) / 1000;
 
         if(age_in_sec > max_age_sec) {
             this.refreshData();
         }
+    }
+
+    _formatN1(n) {
+        let m = (Math.round(n*10)/10.0).toString();
+        return m.includes('.') ? m : m + '.0';
     }
 }
 
