@@ -111,6 +111,7 @@ class App {
         setInterval(() => $('.comments .count').html(this.commentCounter.currentString), 100);
         this.updateTimer = setInterval(() => this.updateComment(), 10000);
         this.updateComment();
+        return this;
     }
 
     updateComment() {
