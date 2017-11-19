@@ -12,6 +12,7 @@ end
 desc 'push and install on prod'
 task :release do
     sh 'git push --follow-tags origin master'
+    sh 'git push --follow-tags github master'
     on_prod 'rake restart'
 end
 
