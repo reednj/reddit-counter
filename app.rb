@@ -18,6 +18,9 @@ set :version, `git describe --long`.to_s.strip
 configure :development do
 	Dir['./lib/*.rb'].each { |f| also_reload f }
 	Dir['./lib/**/*.rb'].each { |f| also_reload f }
+
+	set :server, :thin
+	set :port, 4567
 end
 
 configure :production do
