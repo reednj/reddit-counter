@@ -17,6 +17,7 @@ set :version, `git describe --long`.to_s.strip
 
 configure :development do
 	Dir['./lib/*.rb'].each { |f| also_reload f }
+	Dir['./lib/**/*.rb'].each { |f| also_reload f }
 end
 
 configure :production do
