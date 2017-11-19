@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'time'
 require 'rest_client'
-require './lib/redis_model'
+require './lib/model'
 require './lib/extensions'
 
 class App

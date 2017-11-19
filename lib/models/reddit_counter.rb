@@ -3,7 +3,7 @@ require 'redis'
 require 'time'
 require './lib/extensions'
 
-REDIS = Redis.new
+REDIS ||= Redis.new
 
 class RedisModel
 	def self.redis
