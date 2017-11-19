@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name='viewport' content='width=device-width' />
+
+	<title>how many comments are there on reddit.com?</title>
+	<meta name="description" content="Watch the countdown to reddit's 30 billionth post"/>
+
+	<link rel="shortcut icon" href="/favicon.png"> 
+	<link rel="apple-touch-icon" href="/favicon.png"> 
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono" rel="stylesheet">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+	<link rel="stylesheet" href="/css/main.css?v=<%= settings.version %>" type="text/css">
+
+	<script type='text/javascript' src='/js/jquery-2.1.4.min.js'></script>
+	<script type='text/javascript' src='/js/app.js?v=<%= settings.version %>'></script>
+
+	<% if defined? _js %>
+	<script type='text/javascript'>
+		_js = <%== _js.to_json %>;
+	</script>
+	<% end %>
+
+    <style type='text/css'>
+    .active-threads {
+        margin: 16px;
+    }
+
+    .active-threads td.subreddit {
+        text-align: left;
+    }
+
+    table td.numeric {
+        text-align: right;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table td {
+        padding: 3px 8px;
+    }
+    </style>
+
+</head>
+
+<body>
+
+<div class='header-line'>most comments right now on <a href='http://reddit.com'>reddit.com</a></div>
+
+<div class='active-threads'>
+    <table>
+        <% threads.each do |thread| %>
+        <tr>
+            <td class='subreddit'>[/r/<%= thread[:subreddit] %>]</td>
+            <td class='title'><a href='#'><%= thread[:title].truncate(64) %></a></td>
+            <td class='numeric'><%= thread[:rate].round(1) %>/hr</td>
+        </tr>
+        <% end %>
+    </table>
+</div>
+
+<div class='footer-line'>
+	<a href='http://reednj.com'>@reednj</a> 2017 |
+	<a href='http://reddit-stream.com'>reddit-stream.com</a> |
+	<a href='http://twitter.com/reddit_random'>@reddit_random</a> |
+</div>
+
+</body>
+</html>
