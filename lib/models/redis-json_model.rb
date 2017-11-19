@@ -3,17 +3,19 @@ require 'json'
 
 REDIS = Redis.new
 
-class RedisJSONModel
+class RedisModel
+	def self.redis
+		REDIS
+	end
+
+	def redis
+		self.class.redis
+	end
+end
+
+class RedisJSONModel < RedisModel
     def initialize(data = nil)
         @values = data || {}
-    end
-
-    def redis
-        self.class.redis
-    end
-
-    def self.redis
-        REDIS
     end
 
     def save(key)

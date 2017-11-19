@@ -1,19 +1,7 @@
 require 'json'
-require 'redis'
 require 'time'
 require './lib/extensions'
-
-REDIS ||= Redis.new
-
-class RedisModel
-	def self.redis
-		REDIS
-	end
-
-	def redis
-		self.class.redis
-	end
-end
+require_relative './redis-json_model'
 
 class RedisTimeValue < RedisModel
     attr_accessor :redis_key
