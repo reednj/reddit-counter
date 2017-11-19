@@ -67,4 +67,16 @@ class RedditThreadRate < RedisJSONModel
         model[:id] = id
         return model
     end
+
+    def subreddit_link
+        "https://www.reddit.com/r/#{self[:subreddit]}"
+    end
+
+    def thread_link
+        "https://www.reddit.com/r/comments/#{thread_id}"
+    end
+
+    def thread_id
+        self[:id].to_s.split('_').last
+    end
 end

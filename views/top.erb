@@ -38,10 +38,11 @@
 
     table {
         border-collapse: collapse;
+        margin: 0 auto;
     }
 
     table td {
-        padding: 3px 8px;
+        padding: 4px 8px;
     }
     </style>
 
@@ -55,8 +56,8 @@
     <table>
         <% threads.each do |thread| %>
         <tr>
-            <td class='subreddit'>[/r/<%= thread[:subreddit] %>]</td>
-            <td class='title'><a href='#'><%= thread[:title].truncate(64) %></a></td>
+            <td class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</td>
+            <td class='title'><a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a></td>
             <td class='numeric'><%= thread[:rate].round(1) %>/hr</td>
         </tr>
         <% end %>
