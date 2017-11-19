@@ -8,4 +8,4 @@ if [ -d "${RBENV_ROOT}" ]; then
 fi
 
 cd `dirname "$0"`
-bundle exec ruby update-data.rb
+bundle exec ruby update_data.rb
