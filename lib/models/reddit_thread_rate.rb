@@ -20,7 +20,9 @@ class RedditThreadRate < RedisJSONModel
     end
 
     def self._prune_from_index(ids)
-        redis.zrem('reddit:thread:rate_data:by_rate', ids) unless ids.empty?
+        ids.each do |id|
+            redis.zrem('reddit:thread:rate_data:by_rate', id)
+        end
     end
 
     def update_count(n)
