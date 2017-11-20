@@ -44,9 +44,13 @@
     table td {
         padding: 4px 8px;
     }
+    .active-threads-thin { 
+        display:none;
+    }
 
-    @media only screen and (max-width:400px) {
+    @media only screen and (max-width:700px) {
         .active-threads {display:none;}
+        .active-threads-thin {display:block;}
 
         .active-threads-thin .subreddit a,
         .active-threads-thin .subreddit {
@@ -65,7 +69,7 @@
 
 <body>
 
-<div class='header-line'>most comments right now on <a href='http://reddit.com'>reddit.com</a></div>
+<div class='header-line'>most commented right now on <a href='http://reddit.com'>reddit.com</a></div>
 
 <div class='active-threads'>
     <table>
