@@ -59,6 +59,10 @@ get '/top' do
 	}
 end
 
+get '/top.json' do
+	json RedditThreadRate.top_by_rate(50).map {|t| t.values }
+end
+
 get '/data/comments.json' do
 	comments = RedditCounter.new 'reddit:comments'
 	json comments.to_h
