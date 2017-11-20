@@ -20,6 +20,9 @@ class RedditThreadRate < RedisJSONModel
     end
 
     def self._prune_from_index(ids)
+        # need to loop through removing items from the list, as
+        # not all versions of redis support removing mulitple
+        # keys at once
         ids.each do |id|
             redis.zrem('reddit:thread:rate_data:by_rate', id)
         end
