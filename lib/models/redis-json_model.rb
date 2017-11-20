@@ -42,7 +42,4 @@ class RedisJSONModel < RedisModel
         @values[field_name.to_sym] = v
     end
 
-    def empty?
-        self.values.keys.empty?
-    end
 end

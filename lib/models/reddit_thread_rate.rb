@@ -12,11 +12,10 @@ class RedditThreadRate < RedisJSONModel
         threads = ids.map{|id| RedditThreadRate.load(id) }
 
         prune_ids = threads.
-            select{|t| t.empty? }.
+            select{|t| t[:count].nil? }.
             map{|t| t.key.split(':').last }
 
         self._prune_from_index(prune_ids)
-
         threads.select{|t| !t[:rate].nil?  }.first(n)
     end
 
