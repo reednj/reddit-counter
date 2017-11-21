@@ -116,6 +116,7 @@ class App {
         });
 
         $('.top-threads').load('/data/top.html?n=5');
+        setInterval(() => $('.top-threads').load('/data/top.html?n=5'), 30 * 1000);
     }
 
     start() {
