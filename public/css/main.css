@@ -89,7 +89,11 @@ table td {
 }
 
 .active-threads {
-    margin: 16px;
+    margin: 4px 16px;
+}
+
+.active-threads table {
+    width: 100%;
 }
 
 .active-threads td.subreddit {

@@ -61,8 +61,10 @@ get '/top' do
 end
 
 get '/data/top.html' do
+	n = params[:n].to_i
+	n = 10 if n <= 0 || n > 100
 	erb :_top_threads, :locals => {
-		:threads => RedditThreadRate.top_by_rate(10)
+		:threads => RedditThreadRate.top_by_rate(n)
 	}
 end
 
