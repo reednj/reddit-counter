@@ -42,7 +42,7 @@ a {
 }
 
 .footer-line {
-    text-align:left;
+    text-align:center;
     padding:8px 16px; 
     border-top: 4px solid #4fd;
 }
@@ -61,10 +61,6 @@ a {
 
     .counter .count {
         font-size: 36pt;
-    }
-
-    .footer-line {
-        text-align: center;
     }
 
     .header-line {
