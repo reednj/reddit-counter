@@ -1,7 +1,42 @@
 require_relative './redis-json_model'
 
-class RedditThreadRate < RedisJSONModel
-    
+class RedditRate < RedisJSONModel
+    def self.key(id)
+        "reddit:rate_data:#{id}"
+    end
+
+    def key
+        self.class.key self[:id]
+    end
+
+    def update_count(n)
+        self[:rate] = calc_new_rate(n.to_i)
+        self[:count] = n.to_i
+    end
+
+    # rate is n per hour
+    def calc_new_rate(new_count)
+        return nil if self[:count].nil?
+        return self[:rate] if new_count < self[:count]
+        time_diff = Time.now.to_f - self[:updated_date]
+        return (new_count - self[:count]) / (time_diff / 3600.0)
+    end
+
+    def self.load(id)
+        model = super(self.key(id))
+        model[:id] = id
+        return model
+    end
+
+    def save
+        self[:updated_date] = Time.now.to_f
+        self[:created_date] ||= self[:updated_date]
+        super(self.key)
+        return self
+    end
+end
+
+class RedditThreadRate < RedditRate
     def self.key(id)
         "reddit:thread:rate_data:#{id}"
     end
@@ -28,11 +63,6 @@ class RedditThreadRate < RedisJSONModel
         end
     end
 
-    def update_count(n)
-        self[:rate] = calc_new_rate(n.to_i)
-        self[:count] = n.to_i
-    end
-
     # rate is in comments per hour, to keep the units reasonable
     def calc_new_rate(new_count)
         return nil if self[:count].nil?
@@ -48,14 +78,8 @@ class RedditThreadRate < RedisJSONModel
         return new_rate
     end
 
-    def key
-        self.class.key self[:id]
-    end
-
     def save
-        self[:updated_date] = Time.now.to_f
-        self[:created_date] ||= self[:updated_date]
-        super(self.key)
+        super
         self.redis.expire self.key, 15 * 60
 
         unless self[:rate].nil?
@@ -64,12 +88,6 @@ class RedditThreadRate < RedisJSONModel
         end
 
         return self
-    end
-
-    def self.load(id)
-        model = super(self.key(id))
-        model[:id] = id
-        return model
     end
 
     def subreddit_link
