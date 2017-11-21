@@ -68,7 +68,6 @@ class RedditCounter < RedisModel
     # what the count will be in the long term
     def long_term_rate
         @long_term_rate ||= begin
-        return rate.value
             previous_count = RedisTimeValue.new("#{key_base}:count:#{(Date.today - 7).to_key}")
             previous_count = RedisTimeValue.new("#{key_base}:count:#{(Date.yesterday).to_key}") unless previous_count.exist?
             return rate.value unless previous_count.exist?
