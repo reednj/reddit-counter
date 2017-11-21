@@ -1,0 +1,25 @@
+<div class='active-threads'>
+    <table>
+        <% threads.each do |thread| %>
+        <tr>
+            <td class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</td>
+            <td class='title'><a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a></td>
+            <td class='numeric'><%= thread[:rate].round(1) %>/hr</td>
+        </tr>
+        <% end %>
+    </table>
+</div>
+
+<div class='active-threads-thin'>
+    <table>
+        <% threads.each do |thread| %>
+        <tr>
+            <td>
+            <span class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</span>
+            <a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a>
+            <span class='rate'><%= thread[:rate].round(1) %>/hr</span>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+</div>

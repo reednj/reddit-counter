@@ -2,83 +2,12 @@
 <% content_for :header do %>
 	<title>whats hot right now on reddit.com?</title>
 	<meta name="description" content="Most active threads right now"/>
-
-    <style type='text/css'>
-    .active-threads {
-        margin: 16px;
-    }
-
-    .active-threads td.subreddit {
-        text-align: left;
-    }
-
-    table td.numeric {
-        text-align: right;
-    }
-
-    table {
-        border-collapse: collapse;
-        margin: 0 auto;
-    }
-
-    table td {
-        padding: 4px 8px;
-    }
-    .active-threads-thin { 
-        display:none;
-    }
-
-    @media only screen and (max-width:700px) {
-        .active-threads {display:none;}
-        .active-threads-thin {display:block;}
-
-        .active-threads-thin .subreddit a,
-        .active-threads-thin .subreddit {
-            color: #ccc;
-        }
-
-        .active-threads-thin .rate {
-            color:#4df;
-            font-weight:bold;
-        }
-    }
-
-    </style>
 <% end %>
 
 
 <% content_for :body do %>
 <div class='header-line'>most commented right now on <a href='http://reddit.com'>reddit.com</a></div>
 
-<div class='active-threads'>
-    <table>
-        <% threads.each do |thread| %>
-        <tr>
-            <td class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</td>
-            <td class='title'><a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a></td>
-            <td class='numeric'><%= thread[:rate].round(1) %>/hr</td>
-        </tr>
-        <% end %>
-    </table>
-</div>
+<%== erb :_top_threads, :locals => {:threads => threads } %>
 
-<div class='active-threads-thin'>
-    <table>
-        <% threads.each do |thread| %>
-        <tr>
-            <td>
-            <span class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</span>
-            <a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a>
-            <span class='rate'><%= thread[:rate].round(1) %>/hr</span>
-            </td>
-        </tr>
-        <% end %>
-    </table>
-</div>
-
-<div class='footer-line'>
-	<a href='http://reednj.com'>@reednj</a> 2017 |
-	<a href='http://reddit-stream.com'>reddit-stream.com</a> |
-	<a href='http://twitter.com/reddit_random'>@reddit_random</a>
-</div>
 <% end %>

@@ -73,3 +73,44 @@ a {
         font-size: 32pt;
     }
 }
+
+/* stuff for top threads */
+table td.numeric {
+    text-align: right;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table td {
+    padding: 4px 8px;
+}
+
+.active-threads {
+    margin: 16px;
+}
+
+.active-threads td.subreddit {
+    text-align: left;
+}
+
+.active-threads-thin { 
+    display:none;
+}
+
+@media only screen and (max-width:700px) {
+    .active-threads {display:none;}
+    .active-threads-thin {display:block;}
+
+    .active-threads-thin .subreddit a,
+    .active-threads-thin .subreddit {
+        color: #ccc;
+    }
+
+    .active-threads-thin .rate {
+        color:#4df;
+        font-weight:bold;
+    }
+}
