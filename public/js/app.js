@@ -114,6 +114,8 @@ class App {
             
             this.updateComment();
         });
+
+        $('.top-threads').load('/data/top.html?n=5');
     }
 
     start() {

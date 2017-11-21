@@ -2,9 +2,11 @@
     <table>
         <% threads.each do |thread| %>
         <tr>
-            <td class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</td>
-            <td class='title'><a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a></td>
-            <td class='numeric'><%= thread[:rate].round(1) %>/hr</td>
+            <td class='title'>
+                <span class='subreddit'>[<a href='<%= thread.subreddit_link %>'>/r/<%= thread[:subreddit] %></a>]</span>
+                <a href='<%= thread.thread_link %>'><%= thread[:title].truncate(64) %></a>
+            </td>
+            <td class='numeric rate'><%= thread[:rate].round(1) %>/hr</td>
         </tr>
         <% end %>
     </table>

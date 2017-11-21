@@ -100,17 +100,22 @@ table td {
     display:none;
 }
 
+
+table .subreddit a,
+table .subreddit {
+    color: #ccc;
+}
+
+table .rate {
+    font-weight:bold;
+}
+
 @media only screen and (max-width:700px) {
     .active-threads {display:none;}
     .active-threads-thin {display:block;}
 
-    .active-threads-thin .subreddit a,
-    .active-threads-thin .subreddit {
-        color: #ccc;
-    }
-
-    .active-threads-thin .rate {
+    table .rate {
         color:#4df;
         font-weight:bold;
-    }
+    }   
 }

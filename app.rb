@@ -60,7 +60,13 @@ get '/top' do
 	}
 end
 
-get '/top.json' do
+get '/data/top.html' do
+	erb :_top_threads, :locals => {
+		:threads => RedditThreadRate.top_by_rate(10)
+	}
+end
+
+get '/data/top.json' do
 	json RedditThreadRate.top_by_rate(50).map {|t| t.values }
 end
 
