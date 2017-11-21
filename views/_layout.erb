@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name='viewport' content='width=device-width' />
+
+	<title>how many comments are there on reddit.com?</title>
+	<meta name="description" content="Watch the countdown to reddit's 30 billionth post"/>
+
+	<link rel="shortcut icon" href="/favicon.png"> 
+	<link rel="apple-touch-icon" href="/favicon.png"> 
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono" rel="stylesheet">
+	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
+	<link rel="stylesheet" href="/css/main.css?v=<%= settings.version %>" type="text/css">
+	<script type='text/javascript' src='/js/jquery-2.1.4.min.js'></script>
+
+	<% if defined? _js %>
+	<script type='text/javascript'>
+		_js = <%== _js.to_json %>;
+	</script>
+	<% end %>
+
+	<%== yield_content :header if content_for? :header  %>
+
+</head>
+
+<body>
+<%== yield_content :body %>
+</body>
+</html>

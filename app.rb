@@ -47,7 +47,7 @@ get '/' do
 	milestone = Time.now + milestone
 	milestone = milestone.strftime('%e %B %Y')
 
-	erb :home, :locals => {
+	erb :home, :layout => :_layout, :locals => {
 		:_js => { :comments => comments.to_h },
 		:comments => comments,
 		:milestone => milestone
@@ -55,7 +55,7 @@ get '/' do
 end
 
 get '/top' do
-	erb :top, :locals => {
+	erb :top, :layout => :_layout, :locals => {
 		:threads => RedditThreadRate.top_by_rate(10)
 	}
 end

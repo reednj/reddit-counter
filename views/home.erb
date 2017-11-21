@@ -1,36 +1,16 @@
-<!doctype html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name='viewport' content='width=device-width' />
 
+<% content_for :header do %>
 	<title>how many comments are there on reddit.com?</title>
 	<meta name="description" content="Watch the countdown to reddit's 30 billionth post"/>
 
-	<link rel="shortcut icon" href="/favicon.png"> 
-	<link rel="apple-touch-icon" href="/favicon.png"> 
-
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono" rel="stylesheet">
-	<link rel="stylesheet" href="/css/normalize.css" type="text/css">
-	<link rel="stylesheet" href="/css/main.css?v=<%= settings.version %>" type="text/css">
-
-	<script type='text/javascript' src='/js/jquery-2.1.4.min.js'></script>
 	<script type='text/javascript' src='/js/app.js?v=<%= settings.version %>'></script>
-
-	<% if defined? _js %>
-	<script type='text/javascript'>
-		_js = <%== _js.to_json %>;
-	</script>
-	<% end %>
 
 	<script type='text/javascript'>
 	$(document).ready(() => window._app = new App(_js).start());
 	</script>
+<% end %>
 
-</head>
-
-<body>
-
+<% content_for :body do %>
 <div class='header-line'>how many comments are there on <a href='http://reddit.com'>reddit.com?</a></div>
 
 <div class='comments counter' >
@@ -56,5 +36,5 @@
 
 <!-- data updated <%= (comments.count.created_date.age / 60).round  %>m ago -->
 <!-- current rate is <%= comments.rate.value.round(1) %> comments/sec -->
-</body>
-</html>
+<% end %>
+
