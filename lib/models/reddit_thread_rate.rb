@@ -77,7 +77,7 @@ class RedditThreadRate < RedisJSONModel
     end
 
     def thread_link
-        "https://www.reddit.com/r/comments/#{thread_id}"
+        "https://reddit-stream.com/comments/#{thread_id}"
     end
 
     def thread_id
