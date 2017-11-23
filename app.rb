@@ -10,6 +10,7 @@ require "sinatra/reloader" if development?
 
 require './lib/model'
 require './lib/extensions'
+require './lib/sinatra-redis_cache'
 
 use Rack::Deflater
 set :erb, :escape_html => true
@@ -75,4 +76,10 @@ end
 get '/data/comments.json' do
 	comments = RedditCounter.new 'reddit:comments'
 	json comments.to_h
+end
+
+get '/cache/test' do
+	cache :for => 5 do
+		'hello' + rand.to_s
+	end
 end
