@@ -62,15 +62,19 @@ get '/top' do
 end
 
 get '/data/top.html' do
-	n = params[:n].to_i
-	n = 10 if n <= 0 || n > 100
-	erb :_top_threads, :locals => {
-		:threads => RedditThreadRate.top_by_rate(n)
-	}
+	cache :for => 30 do
+		n = params[:n].to_i
+		n = 10 if n <= 0 || n > 100
+		threads = RedditThreadRate.top_by_rate(n)
+		erb :_top_threads, :locals => { :threads => threads }
+	end
 end
 
 get '/data/top.json' do
-	json RedditThreadRate.top_by_rate(50).map {|t| t.values }
+	content_type :json
+	cache :for => 30 do 
+		RedditThreadRate.top_by_rate(50).map {|t| t.values }.to_json
+	end
 end
 
 get '/data/comments.json' do
