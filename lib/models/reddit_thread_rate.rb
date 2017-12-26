@@ -52,6 +52,9 @@ class RedditThreadRate < RedditRate
 
         self._prune_from_index(prune_ids)
         threads.select{|t| !t[:rate].nil?  }.first(n)
+
+        # remove all keys from the list except the highest ranked 1000
+        redis.zremrangebyrank 'reddit:thread:rate_data:by_rate', 0, -1000
     end
 
     def self._prune_from_index(ids)
