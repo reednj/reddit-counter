@@ -6,7 +6,7 @@ class Counter {
         this.startTime = Date.now();
         this._lastUpdate = Date.now();
      
-        setInterval(() => this._refreshIfNeeded(), 2500);
+        //setInterval(() => this._refreshIfNeeded(), 2500);
     }
 
     get age() {
@@ -116,7 +116,7 @@ class App {
         });
 
         $('.top-threads').load('/data/top.html?n=5');
-        setInterval(() => $('.top-threads').load('/data/top.html?n=5'), 30 * 1000);
+        //setInterval(() => $('.top-threads').load('/data/top.html?n=5'), 30 * 1000);
     }
 
     start() {

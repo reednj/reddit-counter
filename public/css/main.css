@@ -100,9 +100,21 @@ table td {
     text-align: left;
 }
 
+.active-threads td.title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 400px;
+}
+
+.active-threads td.rate {
+    width: 80px;
+}
+
 .active-threads-thin { 
     display:none;
 }
+
 
 
 table .subreddit a,
