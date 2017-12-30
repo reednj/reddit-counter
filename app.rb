@@ -44,9 +44,10 @@ end
 
 get '/' do
 	comments = RedditCounter.new 'reddit:comments'
-	milestone = comments.time_until(30e9)
-	milestone = Time.now + milestone
-	milestone = milestone.strftime('%e %B %Y')
+	until_milestone =  comments.time_until(30e9)
+	milestone_time = (Time.now + until_milestone).utc
+	milestone = milestone_time.strftime('%e %B %Y')
+	milestone += " #{milestone_time.strftime('%H:%M')} UTC" if until_milestone < 7.days
 
 	erb :home, :layout => :_layout, :locals => {
 		:_js => { :comments => comments.to_h },
