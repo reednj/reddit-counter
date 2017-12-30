@@ -1,11 +1,9 @@
 require 'redis'
 require 'json'
 
-REDIS = Redis.new
-
 class RedisModel
 	def self.redis
-		REDIS
+		Redis.current
 	end
 
 	def redis
