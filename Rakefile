@@ -20,3 +20,9 @@ task :restart do
     sh 'mkdir -p tmp'
     sh 'touch tmp/restart.txt'
 end
+
+namespace :dev do
+    task :start do
+        sh 'bundle exec foreman start'
+    end
+end

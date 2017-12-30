@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 group :development do
     gem 'thin'
+    gem 'foreman'
 end
 
 gem 'sinatra'
