@@ -95,7 +95,7 @@ class RedditCounter < RedisModel
             :age => count.created_date.age,
             :count => count.value,
             :rate => rate.value,
-            :refresh_in => 300
+            :refresh_in => 60
         }
     end
 end
