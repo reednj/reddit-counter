@@ -81,9 +81,3 @@ get '/data/comments.json' do
 	comments = RedditCounter.new 'reddit:comments'
 	json comments.to_h
 end
-
-get '/cache/test' do
-	cache :for => 5 do
-		'hello' + rand.to_s
-	end
-end
