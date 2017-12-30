@@ -3,6 +3,7 @@ GEM
   specs:
     YAML-load_first (1.1.4)
     backports (3.8.0)
+    chronic (0.10.2)
     daemons (1.2.4)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
@@ -49,6 +50,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
+    whenever (0.10.0)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -64,6 +67,7 @@ DEPENDENCIES
   sinatra
   sinatra-contrib
   thin
+  whenever
 
 BUNDLED WITH
    1.14.3
