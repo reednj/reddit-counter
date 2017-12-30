@@ -66,12 +66,14 @@ class RedditCounter < RedisModel
 
     # calculate the rate from the last few days / last week so that we can project out
     # what the count will be in the long term
-    def long_term_rate
-        @long_term_rate ||= begin
-            previous_count = RedisTimeValue.new("#{key_base}:count:#{(Date.today - 7).to_key}")
-            previous_count = RedisTimeValue.new("#{key_base}:count:#{(Date.yesterday).to_key}") unless previous_count.exist?
-            return rate.value unless previous_count.exist?
-            (count.value - previous_count.value) / (count.created_date - previous_count.created_date)
+    def long_term_rate(lookback_days=1)
+        @long_term_rate ||= {}
+        @long_term_rate["_#{lookback_days}"] ||= begin
+            start_date = Date.today - lookback_days
+            previous_count = RedisTimeValue.new("#{key_base}:count:#{start_date.to_key}")
+            previous_count.exist? ? 
+                (count.value - previous_count.value) / (count.created_date - previous_count.created_date) : 
+                nil
         end
     end
 
@@ -86,7 +88,12 @@ class RedditCounter < RedisModel
     def time_until(n)
         delta = (n - estimated_count)
         t = delta / rate.value
-        t <= 1.day ? t : delta / long_term_rate
+        lt7 = delta / long_term_rate if long_term_rate
+        lt1 = delta / long_term_rate(1) if long_term_rate(1)
+
+        return lt7 if lt7 && lt7 >= 5.days
+        return lt1 if lt1 && lt1 >= 12.hours
+        return t
     end
 
     def to_h
