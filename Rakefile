@@ -16,9 +16,18 @@ task :release do
     on_prod 'rake restart'
 end
 
-task :restart do
-    sh 'mkdir -p tmp'
-    sh 'touch tmp/restart.txt'
+task :build => ["build:install", "build:restart"]
+
+namespace :build do
+    task :install do
+        sh "bundle install"
+        sh "whenever --update-crontab"
+    end
+
+    task :restart do
+        sh 'mkdir -p tmp'
+        sh 'touch tmp/restart.txt'
+    end
 end
 
 namespace :dev do
