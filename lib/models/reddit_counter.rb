@@ -92,7 +92,7 @@ class RedditCounter < RedisModel
         lt1 = delta / long_term_rate(1) if long_term_rate(1)
 
         return lt7 if lt7 && lt7 >= 5.days
-        return lt1 if lt1 && lt1 >= 12.hours
+        return lt1 if lt1 && lt1 >= 8.hours
         return t
     end
 
