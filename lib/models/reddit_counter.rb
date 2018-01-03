@@ -88,7 +88,7 @@ class RedditCounter < RedisModel
     def time_until(n)
         delta = (n - estimated_count)
         t = delta / rate.value
-        lt7 = delta / long_term_rate(7) if long_term_rate
+        lt7 = delta / long_term_rate(7) if long_term_rate(7)
         lt1 = delta / long_term_rate(1) if long_term_rate(1)
 
         return lt7 if lt7 && lt7 >= 5.days
