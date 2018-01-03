@@ -176,10 +176,10 @@ class App {
         setInterval(() => $('.top-threads').load('/data/top.html?n=5'), 30 * 1000);
 
         let milestone_t = $('#milestone-time').attr('data-time');
-        if(milestone_t - Date.now()/1000 < 3600 * 24) {
-            let duration = Duration.since(milestone_t * 1000);
-
+        let until_t = milestone_t - Date.now()/1000;
+        if(until_t > 0 && until_t < 3600 * 24) {
             $('#milestone-time').show();
+            let duration = Duration.since(milestone_t * 1000);
             setInterval(() => $('#milestone-time').text('(' + duration.toString() + ')'), 1000);
         }
     }
