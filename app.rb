@@ -17,7 +17,7 @@ use Rack::Deflater
 set :erb, :escape_html => true
 set :version, `git describe --long`.to_s.strip
 set :simple_version, settings.version.to_s.split('-')[0..1].join('.')
-set :current_milestone, 30e9
+set :current_milestone, 31e9
 
 configure :development do
 	Dir['./lib/*.rb'].each { |f| also_reload f }
