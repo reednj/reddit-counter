@@ -49,6 +49,63 @@ class Counter {
     }
 }
 
+class Duration {
+    constructor() {
+        this._ms = 0;
+        this._time = null;
+    }
+
+    static since(d) {
+        let duration = new Duration();
+        duration._time = d || Date.now();
+        return duration;
+    }
+
+    get ms() {
+        return this._time ? Math.abs(Date.now() - this._time) : this._ms;
+    }
+
+    get seconds() {
+        return this.ms / 1000;
+    }
+
+    get minutes() {
+        return this.seconds / 60;
+    }
+
+    get hours() {
+        return this.minutes / 60;
+    }
+
+    get days() {
+        return this.hours / 24;
+    }
+
+    toString() {
+        var result = '';
+
+        if(this.days > 1) {
+            result = `${Math.floor(this.days)} days `;
+        }
+
+        let h = Math.floor(this.hours % 24);
+        let m = Math.floor(this.minutes % 60);
+        let s = Math.floor(this.seconds % 60);
+        
+        result += `${this._pad(h)}:${this._pad(m)}:${this._pad(s)}`
+        return result;
+    }
+
+    _pad(n) {
+        n = n || 0;
+        if(n >= 10) {
+            return n.toString();
+        } else {
+            return '0' + n.toString();
+        }
+    }
+}
+
 class CommentHandler {
     constructor() {
         this.comments = [];
@@ -117,7 +174,16 @@ class App {
 
         $('.top-threads').load('/data/top.html?n=5');
         setInterval(() => $('.top-threads').load('/data/top.html?n=5'), 30 * 1000);
+
+        let milestone_t = $('#milestone-time').attr('data-time');
+        if(milestone_t < 3600 * 24) {
+            let duration = Duration.since(milestone_t * 1000);
+
+            $('#milestone-time').show();
+            setInterval(() => $('#milestone-time').text('(' + duration.toString() + ')'), 1000);
+        }
     }
+
 
     start() {
         setInterval(() => $('.comments .count').html(this.commentCounter.currentString), 100);
